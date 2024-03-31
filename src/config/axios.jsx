@@ -2,7 +2,7 @@ import axios from "axios";
 
 const instance = axios.create({
     baseURL:
-         "https://info-back.vercel.app/",
+         "https://info-back.onrender.com/",
     withCredentials: true,
 });
 
