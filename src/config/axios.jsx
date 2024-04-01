@@ -2,7 +2,7 @@ import axios from "axios";
 
 const instance = axios.create({
     baseURL:
-         "https://info-back.onrender.com/",
+         "http://localhost:3000/",
     withCredentials: true,
 });
 

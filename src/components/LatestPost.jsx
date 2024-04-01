@@ -1,6 +1,9 @@
+import { useSelector } from "react-redux";
+
 const LatestPost=()=>{
        const currentDate = new Date();
-  
+  const {blog}=useSelector((state)=>state)
+  console.log(blog)
     // Format the date as desired (e.g., "March 29, 2024")
     const formattedDate = currentDate.toLocaleDateString('en-US', { 
       month: 'long', 
@@ -21,7 +24,7 @@ const LatestPost=()=>{
 
 
     return<>
-    <div className="flex flex-col h-[370vh] w-full md:flex-row w-full gap-[40px] justify-between p-10 md:h-[100%]">
+    <div className="flex flex-col h-[330vh] w-full md:flex-row w-full gap-[40px] justify-between p-10 md:h-[100%]">
         <div className="left w-full md:w-[60%] flex flex-col gap-[20px] h-full">
             <h1 className="text-[40px]">Latest Posts</h1>
             <div className="bg-slate-400 w-full h-[5px] rounded-full"></div>
@@ -60,6 +63,7 @@ const LatestPost=()=>{
                     <p>{formattedDate}</p>
                  </div>
                 </div>
+            
             </div>
           
             

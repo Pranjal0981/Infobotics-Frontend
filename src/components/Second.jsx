@@ -11,7 +11,7 @@ const Second=()=>{
     });
   
     return<>
-    <div className="flex flex-col h-[170vh] gap-[10px] w-full p-2 md:h-[100vh]">
+    <div className="flex flex-col h-[150vh] gap-[10px] w-full p-2 md:h-[100vh]">
     <h1 className="text-6xl">Featured for members</h1> 
     <div className="flex w-full h-[4px] bg-gray-100">
         <div className="w-[40%] bg-neutral-400	">

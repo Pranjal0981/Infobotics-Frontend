@@ -18,6 +18,7 @@ import SportsComponent from './components/ReadBlogs/Sports';
 import BreakingNewsComponent from './components/ReadBlogs/BreakingNews';
 import TechnologyComponent from './components/ReadBlogs/Technology';
 import MyBlogs from './components/ReadBlogs/MyBlogs';
+import ExploreBlogId from './components/ReadBlogs/ExploreById';
 
 export default function App() {
   const { user, isAuth } = useSelector((state) => state.user);
@@ -51,6 +52,9 @@ export default function App() {
   const MyBlog=()=>{
     return isAuth?<MyBlogs/>:<Navigate to='/signin'/>
   }
+  const ExploreBlogById=()=>{
+    return isAuth?<ExploreBlogId/>:<Navigate to='/signin'/>
+  }
   return (
     <> 
       <Navbar />
@@ -69,6 +73,7 @@ export default function App() {
         <Route path='/breaking-news' element={<BreakingNews/>}/>
         <Route path='/technology' element={<Technology/>}/>
         <Route path='/your-blog' element={<MyBlog/>}/>
+        <Route path='/blog/:id' element={<ExploreBlogById/>}/>
       </Routes>
       <Footer />
     </>
