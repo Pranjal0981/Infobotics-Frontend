@@ -17,6 +17,8 @@ const MyBlogs = () => {
     const handleDelete = (blogId) => {
         // Dispatch action to delete the blog with the given ID
         dispatch(asyncBlogDeleteById(blogId));
+        dispatch(asyncCurrentUserBlog(user._id))
+
     };
 
     return (

@@ -2,7 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     blog: [],
-    loading:false
+    loading:false,
+    latestBlogs:[]
 };
 
 export const blogSlice = createSlice({
@@ -20,10 +21,13 @@ export const blogSlice = createSlice({
             state.token = null;
             state.isAuth = false;
         },
-        
+        setLatestBlogs: (state, action) => {
+            state.latestBlogs = action.payload; // Update the latestBlogs array with the payload
+            state.loading = false; // Set loading state to false after updating latestBlogs
+        },
     },
 });
 
-export const { saveBlog,saveBlogImage, removeBlog} = blogSlice.actions;
+export const { saveBlog,saveBlogImage, loading,setLatestBlogs,removeBlog} = blogSlice.actions;
 
 export default blogSlice.reducer;
