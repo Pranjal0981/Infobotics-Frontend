@@ -34,27 +34,11 @@ export default function App() {
   const BlogPost=()=>{
     return isAuth? <PostBlog />:<Navigate to='/signin'/>
   }
-  const Other=()=>{
-    return isAuth?<Others/>:<Navigate to='/signin'/>
-  }
-  const Entertainment=()=>{
-    return isAuth?<EntertainmentComponent/>:<Navigate to='/signin'/>
-  }
-  const Sports=()=>{
-    return isAuth?<SportsComponent/>:<Navigate to='/signin'/>
-  }
-  const Technology=()=>{
-    return isAuth?<TechnologyComponent/>:<Navigate to='/signin'/>
-  }
-  const BreakingNews=()=>{
-    return isAuth?<BreakingNewsComponent/>:<Navigate to='/signin'/>
-  }
+  
   const MyBlog=()=>{
     return isAuth?<MyBlogs/>:<Navigate to='/signin'/>
   }
-  const ExploreBlogById=()=>{
-    return isAuth?<ExploreBlogId/>:<Navigate to='/signin'/>
-  }
+
   return (
     <> 
       <Navbar />
@@ -67,13 +51,13 @@ export default function App() {
         <Route path="/update" element={<ProtectedUpdateProfile />} />
         <Route path="/user/forget-link/:id" element={<ResetPassword />} />
         <Route path='/post-blog' element={<BlogPost/>}/>
-        <Route path='/others' element={<Other/>}/>
-        <Route path='/entertainment' element={<Entertainment/>}/>
-        <Route path='/sports' element={<Sports/>}/>
-        <Route path='/breaking-news' element={<BreakingNews/>}/>
-        <Route path='/technology' element={<Technology/>}/>
+        <Route path='/others' element={<Others/>}/>
+        <Route path='/entertainment' element={<EntertainmentComponent/>}/>
+        <Route path='/sports' element={<SportsComponent/>}/>
+        <Route path='/breaking-news' element={<BreakingNewsComponent/>}/>
+        <Route path='/technology' element={<TechnologyComponent/>}/>
         <Route path='/your-blog' element={<MyBlog/>}/>
-        <Route path='/blog/:id' element={<ExploreBlogById/>}/>
+        <Route path='/blog/:id' element={<ExploreBlogId/>}/>
       </Routes>
       <Footer />
     </>

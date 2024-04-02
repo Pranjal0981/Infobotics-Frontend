@@ -1,4 +1,4 @@
-import { saveBlog, removeBlog} from "../reducers/blogSlice";
+import { saveBlog, removeBlog, setLoading} from "../reducers/blogSlice";
 import axios from "../../config/axios";
 
 import { toast } from 'react-toastify';
@@ -26,7 +26,8 @@ export const asyncPostBlog = (blogdata, id) => async (dispatch, getState) => {
 
 export const asyncReadOthers = () => async (dispatch, getState) => {
     try {
-        
+        dispatch(setLoading(true)); // Set loading state to true before fetching data
+
         const response = await axios.get("/other-blog" );
         console.log(response)
         if (response && response.data && response.data.data) {
@@ -40,13 +41,17 @@ export const asyncReadOthers = () => async (dispatch, getState) => {
         console.error('Error fetching current user data:', error.response?.data || error.message);
         throw error;
     }
+    finally {
+        dispatch(setLoading(false)); // Set loading state to false after fetching data (whether success or failure)
+    }
 };
 
 
 
 export const asyncReadEntertainment = () => async (dispatch, getState) => {
     try {
-        
+        dispatch(setLoading(true)); // Set loading state to true before fetching data
+
         const response = await axios.get("/entertainment-blog" );
         console.log(response)
         if (response && response.data && response.data.data) {
@@ -60,30 +65,35 @@ export const asyncReadEntertainment = () => async (dispatch, getState) => {
         console.error('Error fetching current user data:', error.response?.data || error.message);
         throw error;
     }
+    finally {
+        dispatch(setLoading(false)); // Set loading state to false after fetching data (whether success or failure)
+    }
 };
 
 export const asyncReadSports = () => async (dispatch, getState) => {
     try {
-        
-        const response = await axios.get("/sports-blog" );
-        console.log(response)
+        dispatch(setLoading(true)); // Set loading state to true before fetching data
+
+        const response = await axios.get("/sports-blog");
+        console.log(response);
+
         if (response && response.data && response.data.data) {
             dispatch(saveBlog(response.data.data));
         } else {
             console.error('Invalid response format from server:', response.data);
         }
-    
-        return response.data;
     } catch (error) {
         console.error('Error fetching current user data:', error.response?.data || error.message);
         throw error;
+    } finally {
+        dispatch(setLoading(false)); // Set loading state to false after fetching data (whether success or failure)
     }
 };
 
-
 export const asyncReadBreakingNews = () => async (dispatch, getState) => {
     try {
-        
+        dispatch(setLoading(true)); // Set loading state to true before fetching data
+
         const response = await axios.get("/breakingnews-blog" );
         console.log(response)
         if (response && response.data && response.data.data) {
@@ -97,12 +107,16 @@ export const asyncReadBreakingNews = () => async (dispatch, getState) => {
         console.error('Error fetching current user data:', error.response?.data || error.message);
         throw error;
     }
+    finally {
+        dispatch(setLoading(false)); // Set loading state to false after fetching data (whether success or failure)
+    }
 };
 
 
 export const asyncReadTechnology = () => async (dispatch, getState) => {
     try {
-        
+        dispatch(setLoading(true)); // Set loading state to true before fetching data
+
         const response = await axios.get("/technology-blog" );
         console.log(response)
         if (response && response.data && response.data.data) {
@@ -115,6 +129,9 @@ export const asyncReadTechnology = () => async (dispatch, getState) => {
     } catch (error) {
         console.error('Error fetching current user data:', error.response?.data || error.message);
         throw error;
+    }
+    finally {
+        dispatch(setLoading(false)); // Set loading state to false after fetching data (whether success or failure)
     }
 };
 
