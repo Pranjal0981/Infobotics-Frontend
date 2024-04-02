@@ -153,6 +153,7 @@ export const asyncBlogDeleteById = (blogId) => async (dispatch, getState) => {
         const response = await axios.delete(`/deleteblog/${blogId}`);
         console.log("Blog deleted successfully:", response.data);
         toast.warn("Blog Deleted")
+        dispatch(asyncCurrentUserBlog())
     } catch (error) {
         console.error("Error deleting blog:", error);
     }

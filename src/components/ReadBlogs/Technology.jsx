@@ -1,26 +1,35 @@
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { asyncReadTechnology } from "../../store/actions/blogAction";
-import { useEffect } from "react";
-import Spinner from "../Loader";
+import Spinner from "../Loader"; // Assuming Spinner component is defined in Spinner.js
 import { Link } from "react-router-dom";
 
 const Technology = () => {
     const dispatch = useDispatch();
-    const { blog,loading } = useSelector((state) => state.blog); 
-    // console.log(blog[0].author.name)
+    const { blog, loading } = useSelector((state) => state.blog);
+    const [showSpinner, setShowSpinner] = useState(true);
+
     useEffect(() => {
-        dispatch(asyncReadTechnology());
-    }, []);
+        dispatch(asyncReadTechnology())
+            .then(() => {
+                // Hide spinner after a delay (e.g., 500ms) to make it more noticeable
+                setTimeout(() => {
+                    setShowSpinner(false);
+                }, 500);
+            })
+            .catch((error) => {
+                console.error("Error fetching technology data:", error);
+                setShowSpinner(false); // Hide spinner in case of error
+            });
+    }, [dispatch]);
 
     return (
         <div className="container mx-auto py-8">
             <h2 className="text-3xl font-semibold mb-6">Blog with Category 'Technology'</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {loading ? (
-                    <Spinner loading={loading} />
-                ) : blog.length === 0 ? (
-                    <p>No data available.</p>
-                ) : (
+                {(loading || (blog && blog.length === 0)) && showSpinner ? (
+                    <Spinner loading={true} />
+                ) : blog && Array.isArray(blog) && blog.length > 0 ? (
                     blog.map((blogItem) => (
                         <div key={blogItem._id} className="bg-white shadow-md rounded-md p-6">
                             <h3 className="text-lg font-semibold mb-2">{blogItem.title}</h3>
@@ -32,6 +41,8 @@ const Technology = () => {
                             </div>
                         </div>
                     ))
+                ) : (
+                    <p>No technology data available.</p>
                 )}
             </div>
         </div>
