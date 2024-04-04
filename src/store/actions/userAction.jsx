@@ -9,7 +9,7 @@ export const asynccurrentUser = (token) => async (dispatch, getState) => {
 
         if (response && response.data && response.data.user) {
             console.log(response)
-            dispatch(saveUser(response.data.user));
+           await  dispatch(saveUser(response.data.user));
         } else {
             console.error('Invalid response format from server:', response.data);
         }
@@ -27,7 +27,6 @@ export const asyncsignupUser = (user) => async (dispatch, getState) => {
         console.log(user)
         await axios.post("/signup", user);
         console.log(user)
-        dispatch(asynccurrentUser());
         toast.success('Signup successful!', {
             position: "top-center",
             autoClose: 3000,
@@ -54,7 +53,7 @@ export const asyncsigninUser = (user) => async (dispatch, getState) => {
     try {
         const response = await axios.post("/signin", user);
 
-        dispatch(asynccurrentUser());
+      await  dispatch(asynccurrentUser());
         toast.success('Login successful!', {
             position: "top-center",
             autoClose: 3000,
@@ -82,7 +81,7 @@ export const asyncUpdateUser = (user, id) => async (dispatch, getState) => {
     try {
         console.log(user)
         const response = await axios.post(`/update/${id}`, user);
-        dispatch(asynccurrentUser());
+      await  dispatch(asynccurrentUser());
         toast.success('Profile updated successfully!', {
             position: "top-center",
             autoClose: 3000,
@@ -111,7 +110,7 @@ export const asyncUpdateUser = (user, id) => async (dispatch, getState) => {
 export const asyncremoveUser = () => async (dispatch, getState) => {
     try {
         await axios.get("/signout");
-        dispatch(removeUser());
+        await dispatch(removeUser());
         toast.success('Logout successful!', {
             position: "top-center",
             autoClose: 3000,
@@ -136,8 +135,8 @@ export const asyncremoveUser = () => async (dispatch, getState) => {
 export const asyncDeleteUser = (id) => async (dispatch, getState) => {
     try {
         await axios.post(`/delete/${id}`)
-        dispatch(removeUser())
-        dispatch(asynccurrentUser())
+        await dispatch(removeUser())
+      await  dispatch(asynccurrentUser())
     } catch (error) {
         console.log(error)
     }
