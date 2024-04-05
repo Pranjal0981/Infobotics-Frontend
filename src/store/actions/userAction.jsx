@@ -3,13 +3,18 @@ import axios from "../../config/axios";
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 
-export const asynccurrentUser = (token) => async (dispatch, getState) => {
+export const asyncCurrentUser = (token) => async (dispatch, getState) => {
     try {
-        const response = await axios.post("/user");
 
-        if (response && response.data && response.data.user) {
+
+        const response = await axios.get("/user",
+            (token ? { header: { authorization: token } } : {})
+
+        );
+        console.log(response)
+        if (response?.data?._id) {
             console.log(response)
-           await  dispatch(saveUser(response.data.user));
+            await dispatch(saveUser(response.data));
         } else {
             console.error('Invalid response format from server:', response.data);
         }
@@ -20,7 +25,6 @@ export const asynccurrentUser = (token) => async (dispatch, getState) => {
         throw error;
     }
 };
-
 
 export const asyncsignupUser = (user) => async (dispatch, getState) => {
     try {
@@ -52,8 +56,12 @@ export const asyncsignupUser = (user) => async (dispatch, getState) => {
 export const asyncsigninUser = (user) => async (dispatch, getState) => {
     try {
         const response = await axios.post("/signin", user);
+        console.log(response.data.token)
+        if (response.status == 200) {
+            window.localStorage.setItem("token", response.data.token)
+            await dispatch(asyncCurrentUser(response.data.token))
 
-      await  dispatch(asynccurrentUser());
+        }
         toast.success('Login successful!', {
             position: "top-center",
             autoClose: 3000,
@@ -81,7 +89,7 @@ export const asyncUpdateUser = (user, id) => async (dispatch, getState) => {
     try {
         console.log(user)
         const response = await axios.post(`/update/${id}`, user);
-      await  dispatch(asynccurrentUser());
+        await dispatch(asyncCurrentUser());
         toast.success('Profile updated successfully!', {
             position: "top-center",
             autoClose: 3000,
@@ -136,7 +144,7 @@ export const asyncDeleteUser = (id) => async (dispatch, getState) => {
     try {
         await axios.post(`/delete/${id}`)
         await dispatch(removeUser())
-      await  dispatch(asynccurrentUser())
+        await dispatch(asyncCurrentUser())
     } catch (error) {
         console.log(error)
     }

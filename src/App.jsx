@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Navbar } from './components/Navbar';
 import Home from './components/Home';
 import LatestPost from './components/LatestPost';
@@ -9,7 +9,7 @@ import Signup from './components/Auth/Signup';
 import ForgetPassword from './components/Auth/ForgetPassword';
 import Profile from './components/Profile';
 import UpdateProfile from './components/Updateprofile';
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
 import ResetPassword from './components/Auth/ResetPassword';
 import PostBlog from './components/PostBlog';
 import Others from './components/ReadBlogs/Others';
@@ -19,6 +19,7 @@ import BreakingNewsComponent from './components/ReadBlogs/BreakingNews';
 import TechnologyComponent from './components/ReadBlogs/Technology';
 import MyBlogs from './components/ReadBlogs/MyBlogs';
 import ExploreBlogId from './components/ReadBlogs/ExploreById';
+import { asyncCurrentUser } from './store/actions/userAction';
 
 export default function App() {
   const { user, isAuth } = useSelector((state) => state.user);
@@ -38,7 +39,11 @@ export default function App() {
   const MyBlog=()=>{
     return isAuth?<MyBlogs/>:<Navigate to='/signin'/>
   }
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(asyncCurrentUser())
 
+  }, [])
   return (
     <> 
       <Navbar />

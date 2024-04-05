@@ -1,10 +1,14 @@
 import axios from "axios";
+const token = window.localStorage.getItem("token")
+const instance = axios.create(
 
-const instance = axios.create({
-    baseURL:
-        "https://info-back.onrender.com/",
-    withCredentials: true,
-    
-});
+    {
+        baseURL: "http://localhost:3000",
+        withCredentials: true,
+        headers: {
+            Authorization: token
+        }
+
+    });
 
 export default instance;
