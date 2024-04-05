@@ -5,15 +5,11 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export const asyncCurrentUser = (token) => async (dispatch, getState) => {
     try {
+        const response = await axios.get("/user", {
+            headers: { Authorization: token }
+        });
 
-
-        const response = await axios.get("/user",
-            (token ? { header: { authorization: token } } : {})
-
-        );
-        console.log(response)
         if (response?.data?._id) {
-            console.log(response)
             await dispatch(saveUser(response.data));
         } else {
             console.error('Invalid response format from server:', response.data);

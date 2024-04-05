@@ -3,7 +3,7 @@ const token = window.localStorage.getItem("token")
 const instance = axios.create(
 
     {
-        baseURL: "https://info-back.onrender.com/",
+        baseURL: "http://localhost:3000",
         withCredentials: true,
         headers: {
             Authorization: token
