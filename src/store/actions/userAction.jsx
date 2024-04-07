@@ -87,8 +87,8 @@ export const asyncUpdateUser = (user, id) => async (dispatch, getState) => {
     try {
         console.log(user)
         const response = await axios.post(`/update/${id}`, user);
-       await dispatch(asyncCurrentUser());
-       await dispatch(saveUser(response.data.user))
+        await dispatch(asyncCurrentUser());
+        await dispatch(saveUser(response.data.user))
         toast.success('Profile updated successfully!', {
             position: "top-center",
             autoClose: 3000,
