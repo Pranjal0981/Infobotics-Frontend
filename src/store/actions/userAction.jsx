@@ -60,25 +60,10 @@ export const asyncsigninUser = (user) => async (dispatch, getState) => {
             await dispatch(asyncCurrentUser(response.data.token))
 
         }
-        toast.success('Login successful!', {
-            position: "top-center",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: false,
-            draggable: true,
-        });
+    
         return response.data;
     } catch (error) {
         console.log(error.response.data);
-        toast.error('Login failed!', {
-            position: "bottom-center",
-            autoClose: 3000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-        });
         throw error;
     }
 };
