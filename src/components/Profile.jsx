@@ -6,6 +6,7 @@ import { asyncDeleteUser } from '../store/actions/userAction';
 const ProfileCard = () => {
     const dispatch = useDispatch();
     const { user } = useSelector((state) => state.user);
+    console.log(user)
     const navigate = useNavigate();
 
     const updateAccount = () => {
@@ -37,7 +38,7 @@ const ProfileCard = () => {
                     <div className="font-bold text-xl mb-2">{user?.name}</div>
                     <p className="text-gray-700 text-base">
                         Email: {user?.email} <br />
-                        Phone: {user?.contact || "N/A"}
+                        Phone: {user?.phone || "N/A"}
                     </p>
                 </div>
               

@@ -35,11 +35,9 @@ const UpdateProfile = () => {
     console.log(formDataToUpdate)
     dispatch(asyncUpdateUser(formDataToUpdate, user._id))
       .then((response) => {
-        // Handle success if needed
         console.log('Profile updated successfully:', response);
       })
       .catch((error) => {
-        // Handle error if needed
         console.error('Error updating user profile:', error);
       });
   };

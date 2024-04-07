@@ -3,14 +3,14 @@ import axios from "../../config/axios";
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 
+
 export const asyncCurrentUser = (token) => async (dispatch, getState) => {
     try {
-        const response = await axios.get("/user", {
-            headers: { Authorization: token }
-        });
+        const response = await axios.post("/user");
 
-        if (response?.data?._id) {
-            await dispatch(saveUser(response.data));
+        if (response && response.data && response.data.user) {
+            console.log(response)
+            dispatch(saveUser(response.data.user));
         } else {
             console.error('Invalid response format from server:', response.data);
         }
@@ -21,6 +21,8 @@ export const asyncCurrentUser = (token) => async (dispatch, getState) => {
         throw error;
     }
 };
+
+
 
 export const asyncsignupUser = (user) => async (dispatch, getState) => {
     try {
@@ -85,7 +87,8 @@ export const asyncUpdateUser = (user, id) => async (dispatch, getState) => {
     try {
         console.log(user)
         const response = await axios.post(`/update/${id}`, user);
-        await dispatch(asyncCurrentUser());
+       await dispatch(asyncCurrentUser());
+       await dispatch(saveUser(response.data.user))
         toast.success('Profile updated successfully!', {
             position: "top-center",
             autoClose: 3000,
@@ -109,7 +112,6 @@ export const asyncUpdateUser = (user, id) => async (dispatch, getState) => {
         throw error;
     }
 };
-
 
 export const asyncremoveUser = () => async (dispatch, getState) => {
     try {
